@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private Button b1;
     private Button b2;
     private Button b3;
+
     String Answer = null;
+    private int current_img_index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +45,8 @@ public class MainActivity extends AppCompatActivity {
         String randomKey = keys.get( random.nextInt(keys.size()) );
         Integer value = (Integer) flags.get(randomKey);
 
-        setText(randomKey, value);
         optionListener(keys, random, flags);
-        setRandomOptions();
-    }
-
-    public void setText(String randomKey, Integer value) {
-        b1.setText(randomKey);
-        iv.setImageResource(value);
+        setRandomOptions(randomKey, value);
     }
 
     public void optionListener(final List<String> keys, final Random random, final Map flags) {
@@ -60,13 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 String randomKeyClick = keys.get( random.nextInt(keys.size()) );
                 Integer valueClick = (Integer) flags.get(randomKeyClick);
 
-                setText(randomKeyClick, valueClick);
-                setRandomOptions();
+                setRandomOptions(randomKeyClick, valueClick);
             }
         });
     }
 
-    public void setRandomOptions() {
+    public void setRandomOptions(String randomKey, Integer value) {
         List<String> answers = new ArrayList<>();
         String[] options = {"PH", "US", "NK", "SK"};
 
@@ -79,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        b1.setText(randomKey);
         b2.setText(answers.get(0));
         b3.setText(answers.get(1));
+        iv.setImageResource(value);
     }
 
 }
